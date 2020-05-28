@@ -1,0 +1,11 @@
+node_modules/
+packages/
+bin/
+obj/
+pkg/
+.vs/
+.idea/
+.cache/
+*.suo
+*.user
+.vscode
