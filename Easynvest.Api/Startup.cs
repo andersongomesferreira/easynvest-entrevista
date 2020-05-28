@@ -1,23 +1,14 @@
+using Easynvest.Api.Extensions;
+using Easynvest.Api.Options;
 using Easynvest.Aplicacao.Options;
+using Easynvest.Aplicacao.Queries.ConsultarValorTotalInvestido;
+using Easynvest.Infra.Cache;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Polly;
-using System;
-using MediatR;
-using Refit;
-using Easynvest.Aplicacao.Queries.ConsultarValorTotalInvestido;
-using System.Net.Http;
-using Easynvest.Aplicacao.Services;
-using Easynvest.Api.Options;
-using Polly.Extensions.Http;
-using Polly.Retry;
-using Polly.Timeout;
-using Easynvest.Api.Extensions;
-using StackExchange.Redis;
-using Easynvest.Infra.Cache;
 
 namespace Easynvest.Api
 {
@@ -63,9 +54,8 @@ namespace Easynvest.Api
 			services.AddDistributedRedisCache(options =>
 			{
 				options.Configuration = appOptions.Cache.ConexaoRedis;
+				options.InstanceName = "Easynvest_RedisCache";
 			});
-
-
 
 
 			services.AddTransient(typeof(IRedisClient<>), typeof(RedisClient<>));

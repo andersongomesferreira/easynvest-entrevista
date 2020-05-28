@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Easynvest.Dominio", "Easynv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Easynvest.Aplicacao", "Easynvest.Aplicacao\Easynvest.Aplicacao.csproj", "{C63B260D-8EE0-4296-9A1E-D4568D0341FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Easynvest.Infra", "Easynvest.Infra\Easynvest.Infra.csproj", "{108134D3-B9D2-48BC-9EE1-4C5887065CB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Easynvest.Infra", "Easynvest.Infra\Easynvest.Infra.csproj", "{108134D3-B9D2-48BC-9EE1-4C5887065CB9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

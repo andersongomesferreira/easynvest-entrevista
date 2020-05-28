@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Easynvest.Infra.Cache
-{	
-	public class RedisClient<T> : IRedisClient<T>
+{
+	public class RedisClient<T> : IRedisClient<T> where T : class
 	{
 		private readonly IDistributedCache _distributedCache;
 
@@ -18,7 +18,10 @@ namespace Easynvest.Infra.Cache
 
 		public async Task<T> RecuperarCache(string chave)
 		{
-			return JsonConvert.DeserializeObject<T>(await _distributedCache.GetStringAsync(chave));
+			var resultadoCache = await _distributedCache.GetStringAsync(chave);
+			if (!string.IsNullOrEmpty(resultadoCache))
+				return JsonConvert.DeserializeObject<T>(resultadoCache);
+			return  null;
 		}
 
 		public async Task SalvarCache(string chave, T valor, DateTimeOffset dateTimeOffset)
