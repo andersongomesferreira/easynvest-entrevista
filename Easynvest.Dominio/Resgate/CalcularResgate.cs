@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Easynvest.Dominio.Resgate
 {
-	public class CalculaResgate : ICalculaResgate
+	public class CalcularResgate : ICalculaResgate
 	{
 		public DateTime DataVencimento { get; private set; }
 
@@ -14,10 +14,15 @@ namespace Easynvest.Dominio.Resgate
 		public decimal ValorInvestido { get; private set; }
 
 
-		public CalculaResgate(DateTime dataVencimento, DateTime dataCompra, decimal valorInvestido)
+		public CalcularResgate(DateTime dataVencimento, DateTime dataCompra, decimal valorInvestido)
 		{
 			DataVencimento = dataVencimento;
 			DataCompra = dataCompra;
+			ValorInvestido = valorInvestido;
+		}
+
+		public CalcularResgate(decimal valorInvestido)
+		{
 			ValorInvestido = valorInvestido;
 		}
 
@@ -40,16 +45,16 @@ namespace Easynvest.Dominio.Resgate
 			}
 		}
 
-		private decimal CalcularResgateMaisMetadeTempoCustodia()
+		public decimal CalcularResgateMaisMetadeTempoCustodia()
 		{
 			return ValorInvestido - (ValorInvestido * 0.15M);
 		}
 
-		private decimal CalcularResgateTresMesesVencer()
+		public decimal CalcularResgateTresMesesVencer()
 		{
 			return ValorInvestido - (ValorInvestido * 0.06M);
 		}
-		private decimal CalcularResgatePadrao()
+		public decimal CalcularResgatePadrao()
 		{
 			return ValorInvestido - (ValorInvestido * 0.3M);
 		}

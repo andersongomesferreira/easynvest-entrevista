@@ -1,4 +1,5 @@
 ﻿using Easynvest.Dominio.Interfaces;
+using Easynvest.Dominio.Ir;
 using Easynvest.Dominio.Models;
 using Easynvest.Dominio.Resgate;
 using Newtonsoft.Json;
@@ -36,12 +37,12 @@ namespace Easynvest.Dominio.Models
 		
 		public override decimal CalcularValorIr()
 		{
-			return(this.ValorAtual - this.CapitalInvestido) * 0.15M;
+			return new CalcularIR(this.ValorAtual, this.CapitalInvestido, 0.15M).CalcularValorIR();
 		}
 
 		public override decimal CalcularValorResgate()
 		{
-			return new CalculaResgate(DataResgate, DataCompra, CapitalInvestido).CalcularValorResgate();
+			return new CalcularResgate(DataResgate, DataCompra, CapitalInvestido).CalcularValorResgate();
 		}
 	}
 }
