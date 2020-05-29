@@ -6,9 +6,9 @@ O objetivo desse projeto é criar uma api em .NET Core utilizando as melhores pr
 
   
 Links de acesso:
-API: https://easynvestapi.azurewebsites.net/api/Investimentos/ConsultarValorTotalInvestido
-Swagger: https://easynvestapi.azurewebsites.net/swagger/index.html 
-Github: https://github.com/AndersonGomesOSF/easynvest-entrevista
+- API: https://easynvestapi.azurewebsites.net/api/Investimentos/ConsultarValorTotalInvestido
+- Swagger: https://easynvestapi.azurewebsites.net/swagger/index.html 
+- Github: https://github.com/AndersonGomesOSF/easynvest-entrevista
   
 
 ##  Camadas do projeto 
