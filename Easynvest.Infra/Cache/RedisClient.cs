@@ -21,7 +21,7 @@ namespace Easynvest.Infra.Cache
 			var resultadoCache = await _distributedCache.GetStringAsync(chave);
 			if (!string.IsNullOrEmpty(resultadoCache))
 				return JsonConvert.DeserializeObject<T>(resultadoCache);
-			return  null;
+			return null;
 		}
 
 		public async Task SalvarCache(string chave, T valor, DateTimeOffset dateTimeOffset)

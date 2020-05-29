@@ -1,4 +1,5 @@
 using Easynvest.Api.Extensions;
+using Easynvest.Api.Filtros;
 using Easynvest.Api.Options;
 using Easynvest.Aplicacao.Options;
 using Easynvest.Aplicacao.Queries.ConsultarValorTotalInvestido;
@@ -48,9 +49,6 @@ namespace Easynvest.Api
 			});
 
 			//Configurar o redis
-			//var redis = ConnectionMultiplexer.Connect(appOptions.Cache.ConexaoRedis);
-			//services.AddScoped(r => redis.GetDatabase());
-
 			services.AddDistributedRedisCache(options =>
 			{
 				options.Configuration = appOptions.Cache.ConexaoRedis;
@@ -79,6 +77,8 @@ namespace Easynvest.Api
 			app.UseRouting();
 
 			app.UseAuthorization();
+			
+			app.UseTratarExcecoes();
 
 			app.UseEndpoints(endpoints =>
 			{
