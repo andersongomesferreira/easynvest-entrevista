@@ -2,12 +2,13 @@
 
   
 
-O objetivo dessa demo é criar uma api em .NET utilizando as melhores práticas de desenvolvimento para resolver um desafio proposto pela easynvest: 
+O objetivo desse projeto é criar uma api em .NET Core utilizando as melhores práticas de desenvolvimento para resolver um desafio proposto pela easynvest: 
 
   
-
-O link para acessar o endereço da API através do swagger: https://easynvestapi.azurewebsites.net/swagger/index.html 
-
+Links de acesso:
+API: https://easynvestapi.azurewebsites.net/api/Investimentos/ConsultarValorTotalInvestido
+Swagger: https://easynvestapi.azurewebsites.net/swagger/index.html 
+Github: https://github.com/AndersonGomesOSF/easynvest-entrevista
   
 
 ##  Camadas do projeto 
@@ -22,13 +23,13 @@ Pensando em boas práticas na modelagem do projeto, foi utilizado o Domain-Drive
 
   
 
-A camada de API é responsável por disponibilizar o endpoint de consulta do valor total do investimento do cliente com a lista dos seus investimentos.  
+A camada de API é responsável por disponibilizar o endpoint de consulta do valor total do investimento do cliente com a lista dos seus investimentos com o Valor do IR e Resgates calculados com a data atual.
 
 Implementações feitas na camada de API: 
 
   
 
-- Foi criado a classe ***AplicacaoOptions*** que carrega todas as configurações que estão no *appsettings.json*, essa classe pode usada por injeção de dependências nas outras camadas da aplicação. 
+- Foi criado a classe ***AplicacaoOptions*** representa todas as configurações que estão no *appsettings.json*, essa classe pode usada por injeção de dependências nas outras camadas do projeto. 
 
   
 
@@ -36,7 +37,7 @@ Implementações feitas na camada de API:
 
   
 
-- Foram utilizadas as bibliotecas ***Refit*** com o ***Polly*** para realizar chamadas htttp nos endpoints de serviços com políticas de timeout, retries e wait. 
+- Foram utilizadas as bibliotecas ***Refit*** com o ***Polly*** para realizar chamadas htttp nos endpoints de serviços com políticas de circuit breaker (timeout, retries e wait) configurados no appsettings.json.
 
   
 
@@ -44,19 +45,19 @@ Implementações feitas na camada de API:
 
    
 
-- A comunicação dos endpoins da API para a camada de Aplicação é utilizada a implementação do Mediator Pattern com a biblioteca ***MediatR***. 
+- A comunicação dos endpoins da API para a camada de Aplicação é utilizado a biblioteca ***MediatR*** para implementação do Mediator Pattern. 
 
    
 
 ### Camada Aplicação 
 
-A camada de aplicação é responsável por realizar regras de negócio que envolve mais de um domínio da aplicação e onde estão definidas as classes responsáveis pela comunicação com serviços externos. 
+A camada de aplicação é responsável por realizar regras de negócio que envolvem mais de um domínio da aplicação e onde estão definidas as classes responsáveis pela comunicação com serviços externos. 
 
 Pastas: 
 
-- **Queries**: Pensando em desenvolvimento CQRS, onde cada ação de consulta (query) e comando de criar, atualizar e remover (command) deverão ser separados por responsabilidades únicas na aplicação. Nessa pasta estão as classes de envio de parametros da consulta do método, objeto de retorno e o quem manipula os eventos enviados pelo MediatR, que é a classe *ConsultarValorTotalInvestidoHandler*. 
+- **Queries**: Pensando em desenvolvimento CQRS, cada ação de consulta é um Query e qualquer alteração de estado do domínio(criar, atualizar e remover) é considerado um Command, então cada ação deverá ser separados por responsabilidades únicas na aplicação. Nessa pasta está a classe Query que representa os parámetros enviados para o endpoint, a classe de retorno da consulta e o Handle que manipula os eventos enviados pelo MediatR.
 
-- **Services**: As classes de acesso aos serviços externos. 
+- **Services**: As classes de acesso aos serviços externos usando o Refit para manipular as requisições htttp e o Polly para definir regras de circuit breaker.
 
 - **Options**: A classe que representa as configurações da camada de serviços 
 
@@ -67,16 +68,15 @@ Pastas:
 A camada de domínio contém as classes de entidades, dtos e interfaces. 
 
 Pastas: 
-
   
 
 - **Interfaces**: As interfaces de cálculos de resgate e imposto de renda. 
 
-- **Ir**: A classe concreta de cálculo de imposto de renda. 
+- **Ir**: A classe concreta para cálculo de imposto de renda. 
 
-- **Resgate**: A classe concreta de cálculo do valor de Resgate. 
+- **Resgate**: A classe concreta para cálculo do valor de Resgate. 
 
-- **Models**: Entidades da aplicação. 
+- **Models**: Entidades da aplicação.
 
   
 
@@ -90,7 +90,7 @@ Pastas:
 
   
 
-- **Cache**:  Contém as classes de interface e classe genéricas para recuperar e salvar as chaves no cache do Redis. 
+- **Cache**:  Contém as classes e interfaces genéricas para recuperar e salvar as chaves no cache do Redis do azure. 
 
   
 
